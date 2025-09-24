@@ -32,7 +32,10 @@ export const DatePicker: React.FC<datepickerprops> = ({
             type="button"
             className="w-full flex items-center justify-between border rounded-lg px-3 py-2 text-sm bg-slate-800 text-slate-100 border-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow transition-colors duration-150 placeholder-slate-400 hover:border-blue-400 focus:border-blue-500"
           >
-            <span className={selectedDate ? '' : 'text-slate-400'}>
+            <span
+              className={selectedDate ? '' : 'text-slate-400'}
+              style={{ minWidth: '7.5em', display: 'inline-block' }}
+            >
               {selectedDate ? format(selectedDate, 'yyyy-MM-dd') : placeholder}
             </span>
             <svg

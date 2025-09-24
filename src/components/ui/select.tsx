@@ -14,6 +14,7 @@ interface selectprops {
   className?: string;
   placeholder?: string;
   dropdownPosition?: 'bottom' | 'top' | 'left' | 'right' | 'top-left' | 'bottom-left';
+  compact?: boolean; // for pager use
 }
 
 export const Select: React.FC<selectprops> = ({
@@ -24,12 +25,16 @@ export const Select: React.FC<selectprops> = ({
   className = '',
   placeholder = 'Select status',
   dropdownPosition = 'bottom',
+  compact = false,
 }) => {
   const [open, setOpen] = React.useState(false);
   const selected = options.find((opt: statusoption) => opt.value === value);
 
   return (
-    <div className={className}>
+    <div
+      className={`${className} w-full sm:max-w-[320px]`}
+      style={compact ? { maxWidth: 80 } : {}}
+    >
       {label && (
         <label className="block text-sm font-medium text-gray-300 mb-1 select-none">{label}</label>
       )}
@@ -38,8 +43,11 @@ export const Select: React.FC<selectprops> = ({
           <button
             type="button"
             className="w-full flex items-center justify-between border rounded-lg px-3 py-2 text-sm bg-slate-800 text-slate-100 border-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-500 shadow transition-colors duration-150 hover:border-blue-400 focus:border-blue-500"
+            style={{ maxWidth: '100%' }}
           >
-            <span className={selected ? '' : 'text-slate-400'}>
+            <span
+              className={`${selected ? '' : 'text-slate-400'} w-full sm:w-auto min-w-[2em]`}
+            >
               {selected ? selected.label : placeholder}
             </span>
             <svg
