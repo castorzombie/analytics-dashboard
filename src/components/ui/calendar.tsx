@@ -12,7 +12,7 @@ import {
 } from 'date-fns';
 
 interface calendarprops {
-  mode: 'single';
+  mode?: string;
   selected?: Date;
   onSelect?: (date: Date) => void;
   initialFocus?: boolean;
@@ -20,7 +20,7 @@ interface calendarprops {
 }
 
 export const Calendar: React.FC<calendarprops> = ({
-  mode,
+  // mode,
   selected,
   onSelect,
   initialFocus,

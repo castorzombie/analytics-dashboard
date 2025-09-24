@@ -1,5 +1,5 @@
 import React from 'react';
-import { useKPI } from '../../context/KPIContext';
+import { useKPI } from '../../hooks/useKPI';
 import { Card, CardContent } from '../ui/card';
 import { Banknote, BanknoteX, BanknoteArrowDown, BanknoteArrowUp, EuroIcon } from 'lucide-react';
 import { DotsSpinner } from '../ui/Spinners';

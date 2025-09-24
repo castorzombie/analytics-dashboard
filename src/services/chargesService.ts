@@ -33,7 +33,7 @@ export type chargesresult = {
   };
 };
 
-export async function fetchcharges(variables: any) {
+export async function fetchcharges(variables: Record<string, unknown>) {
   const { data } = await client.query<chargesresult>({
     query: charges_query,
     variables,

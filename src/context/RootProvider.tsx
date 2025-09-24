@@ -1,5 +1,5 @@
 import React from 'react';
-import { KPIProvider } from './KPIContext';
+import { KPIProvider } from './KPIProvider';
 import { PaymentsProvider } from './PaymentsContext';
 
 /**

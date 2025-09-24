@@ -1,6 +1,6 @@
 import ColumnsChart from '../ui/ColumnsChart';
 import { ChartSpinner } from '../ui/Spinners';
-import { useKPI } from '../../context/KPIContext';
+import { useKPI } from '../../hooks/useKPI';
 
 const Dashboard = () => {
   const { loading } = useKPI();

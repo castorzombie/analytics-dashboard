@@ -9,7 +9,7 @@ import {
   ResponsiveContainer,
   Cell,
 } from 'recharts';
-import { useKPI } from '../../context/KPIContext';
+import { useKPI } from '../../hooks/useKPI';
 
 // Define color pairs for Amount and Count for each KPI
 const KPI_KEYS = [
@@ -20,20 +20,42 @@ const KPI_KEYS = [
 ];
 
 // Transform KPI context data to chart data
-function kpiToChartData(kpi: any) {
+import type { chargeskpiresult } from '../../services/chargesKPIService';
+interface ChartKPI {
+  name: string;
+  amount: number;
+  count: number;
+}
+function kpiToChartData(kpi: chargeskpiresult['chargesDateRangeKPI']['total'] | null): ChartKPI[] {
   if (!kpi) return [];
+  type KPIMap = {
+    succeededCount: number;
+    succeededAmount: number;
+    capturedCount: number;
+    capturedAmount: number;
+    failedCount: number;
+    failedAmount: number;
+    refundedCount: number;
+    refundedAmount: number;
+  };
+  const kpiObj = (kpi ?? {}) as Partial<KPIMap>;
   return KPI_KEYS.map(({ key, label }) => {
-    const amountKey = key.toLowerCase() + 'Amount';
-    const countKey = key.toLowerCase() + 'Count';
+    const amountKey = (key.toLowerCase() + 'Amount') as keyof KPIMap;
+    const countKey = (key.toLowerCase() + 'Count') as keyof KPIMap;
     return {
       name: label,
-      amount: (kpi[amountKey] || 0) / 100,
-      count: kpi[countKey] || 0,
+      amount: (kpiObj[amountKey] ?? 0) / 100,
+      count: kpiObj[countKey] ?? 0,
     };
   });
 }
 
-const CustomTooltip = ({ active, payload, label }: any) => {
+interface CustomTooltipProps {
+  active?: boolean;
+  payload?: Array<{ payload: ChartKPI }>;
+  label?: string;
+}
+const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
   if (active && payload && payload.length) {
     const data = payload[0].payload;
     const kpi = KPI_KEYS.find((k) => k.label === label);
@@ -135,7 +157,7 @@ const ColumnsChart: React.FC = () => {
             radius={[10, 10, 0, 0]}
             fill="#60a5fa"
           >
-            {data.map((entry: any, index: number) => (
+            {data.map((_, index: number) => (
               <Cell key={`cell-${index}`} fill={KPI_KEYS[index]?.amountColor} />
             ))}
           </Bar>

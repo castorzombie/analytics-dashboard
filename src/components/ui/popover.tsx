@@ -37,13 +37,14 @@ export const Popover: React.FC<PopoverProps> = ({ open, onOpenChange, children }
 
 interface PopoverTriggerProps {
   children: React.ReactNode;
+  asChild?: boolean;
 }
 
 export const PopoverTrigger: React.FC<PopoverTriggerProps> = ({ children }) => {
   const ctx = React.useContext(PopoverContext);
   if (!ctx) return <>{children}</>;
   if (!React.isValidElement(children)) return <>{children}</>;
-  const childElement = children as React.ReactElement<any>;
+  const childElement = children as React.ReactElement<{ onClick?: (e: React.MouseEvent) => void }>;
   const origOnClick = childElement.props.onClick;
   return React.cloneElement(childElement, {
     ...childElement.props,
@@ -51,8 +52,7 @@ export const PopoverTrigger: React.FC<PopoverTriggerProps> = ({ children }) => {
       ctx.setOpen(!ctx.open);
       if (origOnClick) origOnClick(e);
     },
-    'aria-haspopup': 'dialog',
-    'aria-expanded': ctx.open,
+    ...{'aria-haspopup': 'dialog', 'aria-expanded': ctx.open},
   });
 };
 
