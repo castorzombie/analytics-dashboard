@@ -2,8 +2,6 @@
 
 This template provides a minimal setup to get React working in Vite with HMR and ESLint rules.
 
-Currently, two official plugins are available:
-
 
 # V-Analytics Dashboard
 
@@ -20,6 +18,7 @@ A modern analytics dashboard for visualizing payment KPIs and transaction data. 
 - **Frontend:** React, TypeScript, Vite
 - **Styling:** Tailwind CSS
 - **Icons:** Lucide React
+- **Charts:** Recharts
 - **State Management:** React Context API
 - **Data Layer:** Apollo Client (GraphQL)
 
@@ -35,10 +34,17 @@ A modern analytics dashboard for visualizing payment KPIs and transaction data. 
    git clone https://github.com/castorzombie/analytics-dashboard.git
    cd analytics-dashboard
    ```
+
 2. Install dependencies:
-   ```sh
-   npm install
-   ```
+  ```sh
+  npm install
+  ```
+
+3. Create a `.env` file in the project root and add your API key:
+  ```sh
+  echo "VITE_API_KEY=your_api_key_here" > .env
+  ```
+  Replace `your_api_key_here` with your actual API key. This file is ignored by git and should not be committed.
 
 ### Available Scripts
 - **Start development server:**
